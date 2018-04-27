@@ -73,7 +73,8 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangViewHolder> {
             holder.tv_tien.setText(NumberFormat.getNumberInstance(Locale.US).format(Long.parseLong(tongTien)));
         }
 
-        Picasso.with(mContext).load(hinhAnh).into(holder.img_hinhanh);
+        Picasso.get().load(hinhAnh).into(holder.img_hinhanh);
+      //  Picasso.with(mContext).load(hinhAnh).into(holder.img_hinhanh);
 
 
 //        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

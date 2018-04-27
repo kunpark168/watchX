@@ -53,7 +53,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangViewHolder> {
             holder.tv_tien.setText(NumberFormat.getNumberInstance(Locale.US).format(Long.parseLong(tongTien)));
         }
 
-        Picasso.with(mContext).load(hinhAnh).into(holder.img_hinhanh);
+        Picasso.get().load(data.getHinhanh()).into(holder.img_hinhanh);
 
     }
 

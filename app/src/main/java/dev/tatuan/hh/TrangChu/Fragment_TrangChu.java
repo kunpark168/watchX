@@ -67,7 +67,9 @@ public class Fragment_TrangChu extends Fragment {
         FirebaseRecyclerAdapter<Data, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Data, ItemViewHolder>(Data.class, R.layout.item, ItemViewHolder.class, databaseReference) {
             @Override
             protected void populateViewHolder(final ItemViewHolder viewHolder, final Data model, int position) {
-                Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+
+                Picasso.get().load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+                //Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
 
 //                viewHolder.tv_tenDongHo.setText(String.valueOf(model.getTenDH()));
 
@@ -111,7 +113,8 @@ public class Fragment_TrangChu extends Fragment {
         FirebaseRecyclerAdapter<Data, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Data, ItemViewHolder>(Data.class, R.layout.item, ItemViewHolder.class, databaseReference) {
             @Override
             protected void populateViewHolder(final ItemViewHolder viewHolder, final Data model, int position) {
-                Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+                Picasso.get().load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+              //  Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
 //
 //                viewHolder.tv_tenDongHo.setText(String.valueOf(model.getTenDH()));
 
@@ -156,7 +159,9 @@ public class Fragment_TrangChu extends Fragment {
         FirebaseRecyclerAdapter<Data, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Data, ItemViewHolder>(Data.class, R.layout.item, ItemViewHolder.class, databaseReference) {
             @Override
             protected void populateViewHolder(final ItemViewHolder viewHolder, final Data model, int position) {
-                Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+
+                Picasso.get().load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+               // Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
 
 //                viewHolder.tv_tenDongHo.setText(String.valueOf(model.getTenDH()));
 
@@ -201,7 +206,8 @@ public class Fragment_TrangChu extends Fragment {
             @Override
             protected void populateViewHolder(final ItemViewHolder viewHolder, final Data model, int position) {
 
-                Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+                Picasso.get().load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+               // Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
 
 //                viewHolder.tv_tenDongHo.setText(String.valueOf(model.getTenDH()));
 
@@ -244,7 +250,9 @@ public class Fragment_TrangChu extends Fragment {
         FirebaseRecyclerAdapter<Data, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Data, ItemViewHolder>(Data.class, R.layout.item, ItemViewHolder.class, databaseReference) {
             @Override
             protected void populateViewHolder(final ItemViewHolder viewHolder, final Data model, int position) {
-                Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+
+                Picasso.get().load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+              //  Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
 
 //                viewHolder.tv_tenDongHo.setText(String.valueOf(model.getTenDH()));
 
@@ -288,7 +296,8 @@ public class Fragment_TrangChu extends Fragment {
         FirebaseRecyclerAdapter<Data, ItemViewHolder> adapter = new FirebaseRecyclerAdapter<Data, ItemViewHolder>(Data.class, R.layout.item, ItemViewHolder.class, databaseReference) {
             @Override
             protected void populateViewHolder(final ItemViewHolder viewHolder, final Data model, int position) {
-                Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+                Picasso.get().load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
+               // Picasso.with(getActivity()).load(String.valueOf(model.getLinkHA())).into(viewHolder.img_hinhAnh);
 //
 //                viewHolder.tv_tenDongHo.setText(String.valueOf(model.getTenDH()));
 

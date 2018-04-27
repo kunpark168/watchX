@@ -108,7 +108,8 @@ public class ThongTin extends AppCompatActivity {
         gia = Long.parseLong(price);
 
 
-        Picasso.with(getApplicationContext()).load(image).into(img_tt_hinhanh);
+        Picasso.get().load(image).into(img_tt_hinhanh);
+      //  Picasso.with(getApplicationContext()).load(image).into(img_tt_hinhanh);
         tvif_tenDH.setText(name);
         tvif_loaiDH.setText(type);
         if (Build.VERSION.SDK_INT >= N) {

@@ -53,7 +53,8 @@ public class MuaNgayAdapter extends RecyclerView.Adapter<MuaNgayViewHolder> {
             holder.tv_tien.setText(NumberFormat.getNumberInstance(Locale.US).format(Long.parseLong(tongTien)));
         }
 
-        Picasso.with(mContext).load(hinhAnh).into(holder.img_hinhanh);
+        Picasso.get().load(hinhAnh).into(holder.img_hinhanh);
+       // Picasso.with(mContext).load(hinhAnh).into(holder.img_hinhanh);
 
     }
 

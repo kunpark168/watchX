@@ -46,7 +46,6 @@ public class DangNhap extends AppCompatActivity {
         tv_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //check null
                 if (signIn_Phone.getText().toString().equals("")) {
                     //Dialog

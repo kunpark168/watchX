@@ -1,7 +1,9 @@
 package dev.tatuan.hh.DonHang;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,57 +20,113 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import dev.tatuan.hh.DonHang.donhang.*;
+import dev.tatuan.hh.DonHang.donhang.DonHangAdapter;
 import dev.tatuan.hh.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class Fragment_DonHang extends Fragment {
-    RecyclerView rcOfDonHang;
+    /*RecyclerView rcOfDonHang;
     ArrayList<DonHangData> donHangDatas;
     DonHangAdapter donHangAdapter;
     DonHangData donHangData;
     DatabaseReference db;
     String phone;
-    LinearLayoutManager Verti;
+    LinearLayoutManager Verti;*/
+    private RecyclerView recylerDonHang;
+    private dev.tatuan.hh.DonHang.donhang.DonHangAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private DatabaseReference mData;
+    private String phone;
+    private ArrayList<String> arrListDH ;
+    private HashMap<String, ArrayList<DonHangData>> mapDonHang;
+
+
+    private void getData() {
+        mData = FirebaseDatabase.getInstance().getReference();
+        mapDonHang = new HashMap<>();
+        arrListDH = new ArrayList<>();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DATA", MODE_PRIVATE);
+        phone = sharedPreferences.getString("phone", "");
+        layoutManager = new LinearLayoutManager(getContext());
+        adapter = new DonHangAdapter(arrListDH, getContext());
+        recylerDonHang.setAdapter(adapter);
+        recylerDonHang.setLayoutManager(layoutManager);
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_donhang, container, false);
-        rcOfDonHang = view.findViewById(R.id.rcOfDonHang);
-        donHangDatas = new ArrayList<>();
-        donHangAdapter = new DonHangAdapter(getActivity(), donHangDatas);
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DATA", MODE_PRIVATE);
-        phone = sharedPreferences.getString("phone", "");
-        Verti = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recylerDonHang = view.findViewById(R.id.rcOfDonHang);
         getData();
+        getDataDH ();
+        new LoadData().execute();
         return view;
     }
 
-    private void getData() {
-        db = FirebaseDatabase.getInstance().getReference("donhangcuatoi").child(phone);
-        final String id = db.push().getKey();
-        DatabaseReference dbb = db.child(id);
-        dbb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                donHangDatas.clear();
-                if (dataSnapshot.getValue() != null) {
-                    for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        donHangData = data.getValue(DonHangData.class);
-                        donHangDatas.add(donHangData);
-                        Toast.makeText(getActivity(), id+"", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                donHangAdapter.notifyDataSetChanged();
-            }
+    private void getDataDH() {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        rcOfDonHang.setLayoutManager(Verti);
-        rcOfDonHang.setAdapter(donHangAdapter);
     }
+
+private class LoadData extends AsyncTask<Void, Void, Void> {
+
+    @Override
+    protected Void doInBackground(Void... voids) {
+        mData.child("donhangcuatoi").child(phone).addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            arrListDH.clear();
+            if (dataSnapshot.getValue() != null){
+                for (final DataSnapshot data : dataSnapshot.getChildren()){
+                    arrListDH.add(data.getKey());
+                    final ArrayList<DonHangData> arrDonHang = new ArrayList<>();
+                    mData.child("donhangcuatoi").child(phone).child(data.getKey()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() != null){
+                                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                                    arrDonHang.add(dataSnapshot1.getValue(DonHangData.class));
+                                }
+                                mapDonHang.put(data.getKey(), arrDonHang);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Do something after 5s = 5000ms
+                        publishProgress();
+                    }
+                }, 500);
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
+        return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
+        adapter.setMapDonHang(mapDonHang);
+        adapter.notifyDataSetChanged();
+    }
+}
+
 }
